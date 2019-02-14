@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{CF692052-FDCF-63E6-42F9-BED68345FE36}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/StuffGoHere/TestShader.shader">
+    <Files>
+      <File FileName="Assets/PostProcessing/Editor/PropertyDrawers/MinDrawer.cs" Line="3" Column="62" />
+      <File FileName="Assets/StuffGoHere/PlayerMovement.cs" Line="9" Column="20" />
+      <File FileName="Assets/StuffGoHere/Scripts/CharacterController2D.cs" Line="122" Column="5" />
+      <File FileName="Assets/StuffGoHere/Scripts/BlockPush.cs" Line="265" Column="1" />
+      <File FileName="Assets/StuffGoHere/Scripts/RidePlatform.cs" Line="66" Column="6" />
+      <File FileName="Assets/StuffGoHere/Scripts/PlatformCatcher.cs" Line="20" Column="32" />
+      <File FileName="Assets/IgnoreLayer.cs" Line="6" Column="2" />
+      <File FileName="Assets/StuffGoHere/Scripts/SquishPlayer.cs" Line="113" Column="52" />
+      <File FileName="Assets/StuffGoHere/Scripts/RespawnCheckpoint.cs" Line="35" Column="14" />
+      <File FileName="Assets/CheckpointReceived.cs" Line="26" Column="73" />
+      <File FileName="Assets/StuffGoHere/Scripts/LongBlock.cs" Line="230" Column="80" />
+      <File FileName="Assets/Parralax.cs" Line="42" Column="66" />
+      <File FileName="Assets/StuffGoHere/Sprites/TestShader.shader" Line="35" Column="2" />
+      <File FileName="Assets/StuffGoHere/TestShader.shader" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
