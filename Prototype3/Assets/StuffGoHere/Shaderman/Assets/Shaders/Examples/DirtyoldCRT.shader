@@ -1,13 +1,26 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 
-Shader"ShaderMan/DirtyoldCRT"{
+Shader"MyShaders/CRTCombined"{
 Properties{
-_MainTex("MainTex", 2D) = "white"{}
+//_MainTex("MainTex", 2D) = "white"{}
 _SecondTex("SecondTex", 2D) = "white"{}
 
+ //_Color ("Main Color (A=Opacity)", Color) = (1,1,1,1)
+ _Alpha ("Alpha Value", Range(0,1)) = 1
+ _MainTex ("Base (A=Opacity)", 2D) = ""
+
 }
+
+
+Category {
+
+         Tags {"Queue"="Transparent" "IgnoreProjector"="True"}
+                ZWrite Off
+
+
 SubShader{
+Blend SrcAlpha OneMinusSrcAlpha
 Pass{
 CGPROGRAM
 #pragma vertex vert
@@ -66,16 +79,16 @@ fixed noise(fixed2 uv) {
 // Thanks, Jasper
 fixed2 crt(fixed2 coord, fixed bend)
 {
-	// put in symmetrical coords
+	 //put in symmetrical coords
 	coord = (coord - 0.5) * 2.0;
 
 	coord  = mul(	coord ,0.5);	
 	
-	// deform coords
+	 //deform coords
 	coord.x  = mul(	coord.x ,1.0 + pow((abs(coord.y) / bend), 2.0));
 	coord.y  = mul(	coord.y ,1.0 + pow((abs(coord.x) / bend), 2.0));
 
-	// transform back to 0.0 - 1.0 space
+	 //transform back to 0.0 - 1.0 space
 	coord  = (coord / 1.0) + 0.5;
 
 	return coord;
@@ -87,12 +100,14 @@ fixed2 colorshift(fixed2 uv, fixed amount, fixed rand) {
 		uv.x,
 		uv.y + amount * rand // * sin(uv.y * 1 * 0.12 + _Time.y)
 	);
+    
+    //return uv;
 }
 
 fixed2 scandistort(fixed2 uv) {
 	fixed scan1 = clamp(cos(uv.y * 2.0 + _Time.y), 0.0, 1.0);
 	fixed scan2 = clamp(cos(uv.y * 2.0 + _Time.y + 4.0) * 10.0, 0.0, 1.0) ;
-	fixed amount = scan1 * scan2 * uv.x; 
+	fixed amount = scan1  * uv.x; 
 	
 	uv.x -= 0.05 * lerp(tex2D(_SecondTex, fixed2(uv)),0.5,0.5);
 
@@ -101,9 +116,12 @@ fixed2 scandistort(fixed2 uv) {
 }
 
 fixed vignette(fixed2 uv) {
-	uv = (uv - 0.5) * 0.98;
-	return clamp(pow(cos(uv.x * 3.1415), 1.2) * pow(cos(uv.y * 3.1415), 1.2) * 50.0, 0.0, 1.0);
+	//uv = (uv - 0.5) * 0.98;
+	//return clamp(pow(cos(uv.x * 3.1415), 1.2) * pow(cos(uv.y * 3.1415), 1.2) * 50.0, 0.0, 1.0);
+    return uv;
 }
+
+float _Alpha;
 
 fixed4 frag(v2f i) : SV_Target{
 
@@ -121,11 +139,13 @@ fixed4 frag(v2f i) : SV_Target{
 	color.r = tex2D(_MainTex, crt(colorshift(sd_uv, 0.025, rand.r), 2.0)).r;
 	color.g = tex2D(_MainTex, crt(colorshift(sd_uv, 0.01, rand.g), 2.0)).g;
 	color.b = tex2D(_MainTex, crt(colorshift(sd_uv, 0.024, rand.b), 2.0)).b;
+    color.a = _Alpha;
 		
 	fixed4 scanline_color = fixed4(scanline(crt_uv),scanline(crt_uv),scanline(crt_uv),scanline(crt_uv));
 	fixed4 slowscan_color = fixed4(slowscan(crt_uv),scanline(crt_uv),scanline(crt_uv),scanline(crt_uv));
 	
-	return lerp(color, lerp(scanline_color, slowscan_color, 0.5), 0.05) * vignette(i.uv) * noise(i.uv);
+    //return lerp(color, lerp(scanline_color, lerp(scanline_color, slowscan_color, 0.5), 0.5), 0.05) * noise(i.uv);
+	return color * noise(i.uv);
 		
 
 
@@ -136,5 +156,34 @@ fixed4 frag(v2f i) : SV_Target{
 }ENDCG
 }
 }
-}
+SubShader {                        
+Pass {
+            GLSLPROGRAM
+            varying mediump vec2 uv;
+           
+            #ifdef VERTEX
+            uniform mediump vec4 _MainTex_ST;
+            void main() {
+                gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+                uv = gl_MultiTexCoord0.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+            }
+            #endif
+           
+            #ifdef FRAGMENT
+            uniform lowp sampler2D _MainTex;
+            uniform lowp vec4 _Color;
+            void main() {
+                gl_FragColor = texture2D(_MainTex, uv) * _Color;
+            }
+            #endif     
+            ENDGLSL
+        }}
+       
+        SubShader {Pass {
+            SetTexture[_MainTex] {Combine texture * constant ConstantColor[_Color]}
+        }}
+        
+        
 
+}
+}

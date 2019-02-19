@@ -121,7 +121,7 @@ public class LongBlock : MonoBehaviour
         {
             horizontalMove = Input.GetAxisRaw("KeyHorizontal");
             verticalMove = Input.GetAxisRaw("KeyVertical");
-            if (verticalMove > 0 && moveState != (int)Movement.Down)
+            if (verticalMove > 0)
             {
                 moveState = (int)Movement.Down;
                 rb.velocity = Vector3.down * blockSpeed;
@@ -134,7 +134,7 @@ public class LongBlock : MonoBehaviour
                 isMoving = true;
                 firstFrame = false;
             }
-            else if (verticalMove < 0 && moveState != (int)Movement.Up)
+            else if (verticalMove < 0)
             {
                 moveState = (int)Movement.Up;
                 rb.velocity = Vector3.up * blockSpeed;
@@ -148,7 +148,7 @@ public class LongBlock : MonoBehaviour
                 isMoving = true;
                 firstFrame = false;
             }
-            else if (horizontalMove > 0 && moveState != (int)Movement.Right)
+            else if (horizontalMove > 0)
             {
                 moveState = (int)Movement.Right;
                 rb.velocity = Vector3.right * blockSpeed;
@@ -162,7 +162,7 @@ public class LongBlock : MonoBehaviour
                 isMoving = true;
                 firstFrame = false;
             }
-            else if (horizontalMove < 0 && moveState != (int)Movement.Left)
+            else if (horizontalMove < 0)
             {
                 moveState = (int)Movement.Left;
                 rb.velocity = Vector3.left * blockSpeed;

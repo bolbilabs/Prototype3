@@ -11,6 +11,7 @@ public class BlockPush : MonoBehaviour
 
     public Animator animator;
 
+    private DialogueManager dialogueManager;
 
     float horizontalMove = 0f;
     float verticalMove = 0f;
@@ -39,7 +40,15 @@ public class BlockPush : MonoBehaviour
 
     bool firstFrame = false;
 
+    Transform player;
 
+    public float bigDistance = 10.0f;
+
+
+    void Awake()
+    {
+        player = GameObject.FindWithTag("Player").gameObject.GetComponent<Transform>();
+    }
 
 
 
@@ -49,6 +58,9 @@ public class BlockPush : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+
+
+        dialogueManager = GameObject.FindWithTag("DialogueManager").gameObject.GetComponent<DialogueManager>();
 
 
         //lastPosition = rb.position;
@@ -117,11 +129,11 @@ public class BlockPush : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isMoving)
+        if (!isMoving && !dialogueManager.inCutscene)
         {
                 horizontalMove = Input.GetAxisRaw("KeyHorizontal");
                 verticalMove = Input.GetAxisRaw("KeyVertical");
-            if (verticalMove > 0 && moveState != (int)Movement.Down)
+            if (verticalMove > 0)
             {
                 moveState = (int)Movement.Down;
                 rb.velocity = Vector3.down * blockSpeed;
@@ -134,7 +146,7 @@ public class BlockPush : MonoBehaviour
                 isMoving = true;
                 firstFrame = false;
             }
-            else if (verticalMove < 0 && moveState != (int)Movement.Up)
+            else if (verticalMove < 0)
             {
                 moveState = (int)Movement.Up;
                 rb.velocity = Vector3.up * blockSpeed;
@@ -148,7 +160,7 @@ public class BlockPush : MonoBehaviour
                 isMoving = true;
                 firstFrame = false;
             }
-            else if (horizontalMove > 0 && moveState != (int)Movement.Right)
+            else if (horizontalMove > 0)
             {
                 moveState = (int)Movement.Right;
                 rb.velocity = Vector3.right * blockSpeed;
@@ -162,7 +174,7 @@ public class BlockPush : MonoBehaviour
                 isMoving = true;
                 firstFrame = false;
             }
-            else if (horizontalMove < 0 && moveState != (int)Movement.Left)
+            else if (horizontalMove < 0)
             {
                 moveState = (int)Movement.Left;
                 rb.velocity = Vector3.left * blockSpeed;

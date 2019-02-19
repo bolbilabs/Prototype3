@@ -18,6 +18,43 @@ public class RespawnCheckpoint : MonoBehaviour
 
     public Transform player;
 
+    public static bool firstDone = false;
+    public bool debug = false;
+
+    public GameObject shadow;
+
+    public MonoBehaviour squish;
+
+    public GameObject playerGO;
+    public GameObject dummyGO;
+
+    bool once = false;
+
+    public static int level = 0;
+
+    public bool transitionBool = false;
+    public static bool grandBool = false;
+    public bool elTigreBool = false;
+
+    public SpriteRenderer rend1;
+
+    public MonoBehaviour lerpScript;
+
+    public string currentScene;
+
+    public string forceScene;
+
+    int sortOrder;
+
+
+
+
+    public static bool fadeIn = false;
+
+
+
+
+
 
     void Awake()
     {
@@ -37,6 +74,17 @@ public class RespawnCheckpoint : MonoBehaviour
             player.position = checkLocation;
         }
 
+        Debug.Log(player);
+
+        sortOrder = rend1.sortingOrder;
+
+        currentScene = "SampleScene";
+
+        if (forceScene != null)
+        {
+            currentScene = forceScene;
+        }
+
     }
 
 
@@ -48,17 +96,82 @@ public class RespawnCheckpoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        restart = Input.GetAxisRaw("Respawn");
+    
 
-        if (restart > 0)
+
+        if (firstDone || debug)
         {
-            cameraPosition = Camera.main.transform.position;
-            if (checkpoint != null)
+            restart = Input.GetAxisRaw("Respawn");
+
+            if (restart > 0)
             {
-                checkLocation = checkpoint.position;
+                cameraPosition = Camera.main.transform.position;
+                if (checkpoint != null)
+                {
+                    checkLocation = checkpoint.position;
+                }
+                SceneManager.LoadScene(currentScene);
             }
-            SceneManager.LoadScene("SampleScene");
+        }
+
+        if (!firstDone && !debug)
+        {
+
+
+
+            shadow.SetActive(true);
+            squish.enabled = false;
+
+
+            if (!once)
+            {
+                dummyGO.SetActive(true);
+                playerGO.SetActive(false);
+            }
+
+            if (Input.GetKeyDown("w") && !once)
+            {
+                dummyGO.SetActive(false);
+                playerGO.SetActive(true);
+                once = true;
+
+
+                firstDone = true;
+                squish.enabled = true;
+                //shadow.SetActive(false);
+            }
+
+        }
+
+        if (rend1 != null)
+        {
+            if (rend1.sortingOrder > 1500)
+            {
+                rend1.sortingOrder -= 25;
+            }
+            else
+            {
+                lerpScript.enabled = true;
+            }
+        }
+
+        if (shadow == null)
+        {
+            firstDone = true;
         }
 
     }
+
+
+
+    public static int getLevel()
+    {
+        return level;
+    }
+
+    public static void setLevel(int num)
+    {
+        level = num;
+    }
+
 }

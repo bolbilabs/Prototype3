@@ -8,6 +8,11 @@ TagManager:
   - Checkpoint
   - Singleton
   - Hazard
+  - Passable
+  - DialogueManager
+  - Key
+  - Door
+  - Shadowman
   layers:
   - Default
   - TransparentFX
@@ -20,9 +25,9 @@ TagManager:
   - Platform
   - Checkpoint
   - Hazard
-  - 
-  - 
-  - 
+  - Passable
+  - Player
+  - Key
   - 
   - 
   - 

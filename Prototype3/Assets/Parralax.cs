@@ -8,16 +8,16 @@ public class Parralax : MonoBehaviour
 
     public Renderer renderer;
 
-    int flaviu = 0;
+    //int flaviu = 0;
 
-    public float scrollSpeed;
+    //public float scrollSpeed;
     private Vector2 savedOffset;
 
-    public float flaviuX = 0.0f;
+    //public float flaviuX = 0.0f;
 
-    public float flaviuY = 0.0f;
+    //public float flaviuY = 0.0f;
 
-    public float tileSizeZ = 1.0f;
+    public float scale = 1.0f;
 
 
     // Start is called before the first frame update
@@ -32,16 +32,16 @@ public class Parralax : MonoBehaviour
     void Update()
     {
 
-        //texture.sharedMaterial.SetTextureOffset("_MainTex", new Vector2(player.position.x / 4, player.position.y / 4));
+        renderer.sharedMaterial.SetTextureOffset("_MainTex", new Vector2(player.position.x / scale, player.position.y / scale));
 
         //texture.sharedMaterial.SetTextureOffset("_MainTex", new Vector2(flaviu++, flaviu++));
 
         //float offset = Time.time * scrollSpeed;
         //texture.material.SetTextureOffset("_MainTex", new Vector2(flaviuX, flaviuY));
 
-        float y = Mathf.Repeat(Time.time * scrollSpeed, tileSizeZ);
-        Vector2 offset = new Vector2(savedOffset.x, y);
-        renderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
+        //float y = Mathf.Repeat(Time.time * scrollSpeed, tileSizeZ);
+        //Vector2 offset = new Vector2(savedOffset.x, y);
+        //renderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
     }
     void OnDisable()
     {
