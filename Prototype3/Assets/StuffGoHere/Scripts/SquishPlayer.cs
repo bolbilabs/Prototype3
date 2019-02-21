@@ -15,7 +15,7 @@ public class SquishPlayer : MonoBehaviour
     public Transform head;
     public Transform tail;
 
-    bool playerDie = false;
+    public bool playerDie = false;
 
     public float soulRadius = .2f;
 

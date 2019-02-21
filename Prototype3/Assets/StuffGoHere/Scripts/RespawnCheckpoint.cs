@@ -46,15 +46,15 @@ public class RespawnCheckpoint : MonoBehaviour
 
     int sortOrder;
 
-
+    int counter = 0;
 
 
     public static bool fadeIn = false;
 
 
 
-
-
+    public DialogueTrigger trigger;
+    //public DialogueManager manager;
 
     void Awake()
     {
@@ -84,6 +84,8 @@ public class RespawnCheckpoint : MonoBehaviour
         {
             currentScene = forceScene;
         }
+
+        counter = 0;
 
     }
 
@@ -139,7 +141,17 @@ public class RespawnCheckpoint : MonoBehaviour
                 firstDone = true;
                 squish.enabled = true;
                 //shadow.SetActive(false);
+                FindObjectOfType<DialogueManager>().EndDialogue();
             }
+
+
+            if (counter > 200 && !FindObjectOfType<DialogueManager>().inCutscene && !firstDone)
+            {
+                trigger.TriggerDialogue();
+            }
+
+            counter++;
+
 
         }
 

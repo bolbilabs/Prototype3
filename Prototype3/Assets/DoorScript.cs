@@ -39,6 +39,7 @@ public class DoorScript : MonoBehaviour
         }
 
 
+
     }
 
     void FixedUpdate()
@@ -47,7 +48,13 @@ public class DoorScript : MonoBehaviour
         {
             exitLerp.enabled = true;
             transition++;
+
         }
+        if (transition > 40)
+        {
+            checkout.checkpoint = null;
+        }
+
 
         if (transition > 50)
         {
