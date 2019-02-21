@@ -58,6 +58,10 @@ public class DialogueManager : MonoBehaviour
         playerMovement.horizontalMove = 0.0f;
         playerMovement.controller.Move(0, false, false);
 
+        sentences = new Queue<string>();
+        images = new Queue<Sprite>();
+        scriptTriggers = new MonoBehaviour[0];
+
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
 
@@ -154,7 +158,10 @@ public class DialogueManager : MonoBehaviour
         {
             foreach (MonoBehaviour script in scriptTriggers)
             {
-                script.enabled = true;
+                if (script != null)
+                {
+                    script.enabled = true;
+                }
             }
         }
 
