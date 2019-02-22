@@ -46,14 +46,16 @@ public class DoorScript : MonoBehaviour
     {
         if (transition > 0)
         {
+            checkout.checkpoint = null;
+
             exitLerp.enabled = true;
             transition++;
 
         }
-        if (transition > 40)
-        {
-            checkout.checkpoint = null;
-        }
+        //if (transition > 40)
+        //{
+        //    checkout.checkpoint = null;
+        //}
 
 
         if (transition > 50)
@@ -61,6 +63,8 @@ public class DoorScript : MonoBehaviour
             checkout.currentScene = scene;
             checkout.checkpoint = null;
             checkout.transitionBool = false;
+            checkout.checkpoint = null;
+            RespawnCheckpoint.checkLocation = new Vector3(0, 0, 0);
 
             RespawnCheckpoint.fadeIn = true;
             SceneManager.LoadScene(scene);
@@ -94,6 +98,8 @@ public class DoorScript : MonoBehaviour
                 //SceneManager.LoadScene("SampleScene");
                 transition++;
                 player.SetActive(false);
+                checkout.checkpoint = null;
+
 
             }
         }

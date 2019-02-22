@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ruins2.unity
     guid: 5902163f77ca84a0097588e54b85a3e4
+  - enabled: 1
+    path: Assets/Scenes/Ruins3.unity
+    guid: 8374127f20dde40d1ab5eea8b8757e5e
   m_configObjects: {}

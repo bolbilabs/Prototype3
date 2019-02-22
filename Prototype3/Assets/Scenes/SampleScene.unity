@@ -46037,7 +46037,8 @@ PrefabInstance:
     - target: {fileID: 7769591742503227885, guid: 3a3d4bfc0a5094b48973dfd20fe69cef,
         type: 3}
       propertyPath: dialogue.sentences.Array.data[3]
-      value: Trust me, I tried once. It's how I kicked the bucket.
+      value: Trust me, I tried once. It's how I lost my sweet car. And how I kicked
+        the bucket!
       objectReference: {fileID: 0}
     - target: {fileID: 7769591742503227885, guid: 3a3d4bfc0a5094b48973dfd20fe69cef,
         type: 3}
@@ -90404,6 +90405,7 @@ MonoBehaviour:
   player: {fileID: 7603258987853484396}
   head: {fileID: 1462436621}
   tail: {fileID: 1023979445}
+  playerDie: 0
   soulRadius: 0.35
 --- !u!61 &7603258987853484392
 BoxCollider2D:

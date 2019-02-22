@@ -226,7 +226,7 @@ public class CarPush : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
                 Vector2 currentPos = rb.gameObject.transform.position;
             
-                currentPos.x = (float)((Mathf.Sign(currentPos.x) * (Mathf.Floor(Mathf.Abs(currentPos.x)))));
+                currentPos.x = (float)((Mathf.Sign(currentPos.x) * (Mathf.Round(Mathf.Abs(currentPos.x)))));
                 currentPos.y = (float)((Mathf.Sign(currentPos.y) * (Mathf.Round(Mathf.Abs(currentPos.y)))));
 
 

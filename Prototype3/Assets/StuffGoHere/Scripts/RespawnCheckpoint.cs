@@ -74,7 +74,7 @@ public class RespawnCheckpoint : MonoBehaviour
             player.position = checkLocation;
         }
 
-        Debug.Log(player);
+        //Debug.Log(player);
 
         sortOrder = rend1.sortingOrder;
 
